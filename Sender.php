@@ -4,12 +4,17 @@ declare(strict_types=1);
 
 namespace App;
 
-final class Sender
-{
-    protected array $settings;
+use App\Dtos\SenderCredentialsDto;
+use Entities\ClientEntity;
 
-    public function setCredentials(array $settings)
+abstract class Sender
+{
+    protected SenderCredentialsDto $credentials;
+
+    public function setCredentials(SenderCredentialsDto $credentialsDto): void
     {
-        $this->settings = $settings;
+        $this->credentials = $credentialsDto;
     }
+
+    abstract function send(ClientEntity $data): int;
 }
